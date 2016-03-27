@@ -1,0 +1,98 @@
+<div class="view">
+    <div class="container">
+        <header>
+            <h3><span class="glyphicon glyphicon-stats"></span> Prices</h3>
+        </header>
+        <br />
+        <div class="customerEdit">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label class="navbarText col-sm-3">Filter by Company Id/Name:</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control novalidate"
+                               data-ng-model="vm.searchText"
+                               data-ng-change="vm.searchTextChanged()" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="container">
+            <div class="row">
+				<table class="table table-hover table-striped table-condensed table-bordered ordersTable">
+				    <thead>
+				        <tr> 
+				            <th data-ng-click="vm.setOrder('Symbol')">Id</th>
+				            <th data-ng-click="vm.setOrder('Name')">Company</th>
+				            <th data-ng-click="vm.setOrder('Isin')">Isin</th>
+				            <th data-ng-click="vm.setOrder('OfficialClosingPrice')">Official Closing Price</th>
+				            <th data-ng-click="vm.setOrder('LastPrice')">Last Price</th>
+				            <th data-ng-click="vm.setOrder('LastTradeVolume')">Last Trade Volume</th>
+				            <th data-ng-click="vm.setOrder('FirstPrice')">First Price</th>
+				            <th data-ng-click="vm.setOrder('HighPrice')">High Price</th>
+				            <th data-ng-click="vm.setOrder('LowPrice')">Low Price</th>
+				            <th data-ng-click="vm.setOrder('AccumulatedVolume')">Accumulated Volume</th>
+				            <th data-ng-click="vm.setOrder('TimeExec')">Time Exec</th>
+				        </tr>
+				    </thead>
+				    <tbody>
+				        <tr data-ng-hide="vm.filteredShares || vm.filteredShares.length > 0" class="error">
+				            <td colspan="11">
+				                <div class="text-center"><strong>No shares found</strong></div>
+				            </td>
+				        </tr>
+				        <tr data-ng-repeat="share in vm.filteredShares | orderBy:vm.orderby:vm.reverse track by $index" class="repeat-animation">
+				            <td>
+				                {{ share.company.Symbol }}
+				            </td>
+				            <td>
+				                {{ share.company.Name }}
+				            </td>
+				            <td>
+				                {{ share.company.Isin }}
+				            </td>
+				            <td>
+				                {{ share.OfficialClosingPrice | currency }}
+				            </td>
+				            <td>
+				                {{ share.LastPrice | currency }}
+				            </td>
+				            <td>
+				                {{ share.LastTradeVolume | currency }}
+				            </td>
+				            <td>
+				                {{ share.FirstPrice | currency }}
+				            </td>
+				            <td>
+				                {{ share.HighPrice | currency }}
+				            </td>
+				            <td>
+				                {{ share.LowPrice | currency }}
+				            </td>
+				            <td>
+				                {{ share.AccumulatedVolume | currency }}
+				            </td>
+				            <td>
+				                {{ share.TimeExec | date:'hh:mm:ss' }}
+				            </td>
+				        </tr>
+				    </tbody>
+				</table>        
+            </div>
+            <div class="row show-hide-animation" data-ng-show="vm.shares.length > 0" style="margin-left:0px;">
+                <div class="col-md-12">
+                    <div data-pagination
+                         data-on-select-page="vm.pageChanged(page)"
+                         data-total-items="vm.totalRecords"
+                         data-page="vm.currentPage"
+                         data-items-per-page="vm.pageSize"
+                         data-boundary-links="true"
+                         class="pagination-sm">
+                    </div>
+                    <h5>Showing {{ vm.filteredCount }} of {{ vm.totalRecords}} total shares</h5>
+                </div>
+            </div>
+		</div>
+    </div>
+</div>
+
+
