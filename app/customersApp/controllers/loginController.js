@@ -28,6 +28,7 @@ define(['app'], function (app) {
                 $location.path(path);
             });
         };
+        
     };
 
     LoginController.$inject = injectParams;

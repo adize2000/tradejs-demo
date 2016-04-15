@@ -68,6 +68,22 @@ module.exports = {
         });
     },
     
+    updateShare: function (req_body, callback) {
+        console.log('*** accessDB.updateShare');
+
+        Share.findOne({ 'StreamDate': req_body.StreamDate, 'IdCode': req_body.IdCode }, {}, function (err, share) {
+            if (err) { return callback(err); }
+
+            share.LastPrice = req_body.LastPrice || share.LastPrice;
+
+            share.save(function (err) {
+                if (err) { console.log('*** accessDB.updateShare err: ' + err); return callback(err); }
+                callback(null);
+            });
+
+        });
+    },
+    
     // get all the customers
     getCustomers: function (skip, top, callback) {
         console.log('*** accessDB.getCustomers');

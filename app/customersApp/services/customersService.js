@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 
 define(['app'], function (app) {
 
@@ -14,6 +14,12 @@ define(['app'], function (app) {
 
         factory.getShares = function (pageIndex, pageSize) {
             return getPagedResource('shares', pageIndex, pageSize);
+        };
+
+        factory.updateShare = function (share) {
+            return $http.post(serviceBase + 'postShare', share).then(function (results) {
+                return results.data;
+            });
         };
         
         factory.getCustomers = function (pageIndex, pageSize) {

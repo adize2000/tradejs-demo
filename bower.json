@@ -1,0 +1,24 @@
+{
+    "name": "TradeJS",
+    "version": "1.0.0",
+    "main": "path/to/main.css",
+    "ignore": [
+        ".jshintrc",
+        "**/*.txt"
+    ],
+    "dependencies": {
+        "jquery": "latest",
+        "angular": "latest",
+        "angular-resource": "latest",
+        "angular-cookies": "latest",
+        "angular-mocks": "latest",
+        "angular-route": "latest",
+        "angular-animate": "latest",
+        "bootstrap": "latest",
+        "angular-bootstrap": "latest",
+        "angular-ui-router": "latest",
+        "web-bootstrap": "./Scripts/web-bootstrap.js",
+        "angular-ui-select": "latest",
+        "angular-sanitize": "latest"
+    }
+}

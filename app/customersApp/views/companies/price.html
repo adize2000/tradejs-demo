@@ -18,80 +18,95 @@
         </div>
         <div class="container">
             <div class="row">
-				<table class="table table-hover table-striped table-condensed table-bordered ordersTable">
-				    <thead>
-				        <tr> 
-				            <th data-ng-click="vm.setOrder('Symbol')">Id</th>
-				            <th data-ng-click="vm.setOrder('Name')">Company</th>
-				            <th data-ng-click="vm.setOrder('Isin')">Isin</th>
-				            <th data-ng-click="vm.setOrder('OfficialClosingPrice')">Official Closing Price</th>
-				            <th data-ng-click="vm.setOrder('LastPrice')">Last Price</th>
-				            <th data-ng-click="vm.setOrder('LastTradeVolume')">Last Trade Volume</th>
-				            <th data-ng-click="vm.setOrder('FirstPrice')">First Price</th>
-				            <th data-ng-click="vm.setOrder('HighPrice')">High Price</th>
-				            <th data-ng-click="vm.setOrder('LowPrice')">Low Price</th>
-				            <th data-ng-click="vm.setOrder('AccumulatedVolume')">Accumulated Volume</th>
-				            <th data-ng-click="vm.setOrder('TimeExec')">Time Exec</th>
-				        </tr>
-				    </thead>
-				    <tbody>
-				        <tr data-ng-hide="vm.filteredShares || vm.filteredShares.length > 0" class="error">
-				            <td colspan="11">
-				                <div class="text-center"><strong>No shares found</strong></div>
-				            </td>
-				        </tr>
-				        <tr data-ng-repeat="share in vm.filteredShares | orderBy:vm.orderby:vm.reverse track by $index" class="repeat-animation">
-				            <td>
-				                {{ share.company.Symbol }}
-				            </td>
-				            <td>
-				                {{ share.company.Name }}
-				            </td>
-				            <td>
-				                {{ share.company.Isin }}
-				            </td>
-				            <td>
-				                {{ share.OfficialClosingPrice | currency }}
-				            </td>
-				            <td>
-				                {{ share.LastPrice | currency }}
-				            </td>
-				            <td>
-				                {{ share.LastTradeVolume | currency }}
-				            </td>
-				            <td>
-				                {{ share.FirstPrice | currency }}
-				            </td>
-				            <td>
-				                {{ share.HighPrice | currency }}
-				            </td>
-				            <td>
-				                {{ share.LowPrice | currency }}
-				            </td>
-				            <td>
-				                {{ share.AccumulatedVolume | currency }}
-				            </td>
-				            <td>
-				                {{ share.TimeExec | date:'hh:mm:ss' }}
-				            </td>
-				        </tr>
-				    </tbody>
-				</table>        
+                <table class="table table-hover table-striped table-condensed table-bordered ordersTable">
+                    <thead>
+                        <tr> 
+                            <th data-ng-click="vm.setOrder('Symbol')">Id</th>
+                            <th data-ng-click="vm.setOrder('Name')">Company</th>
+                            <th data-ng-click="vm.setOrder('Isin')">Isin</th>
+                            <th data-ng-click="vm.setOrder('OfficialClosingPrice')">Official Closing Price</th>
+                            <th data-ng-click="vm.setOrder('LastPrice')">Last Price</th>
+                            <th></th>
+                            <th data-ng-click="vm.setOrder('LastTradeVolume')">Last Trade Volume</th>
+                            <th data-ng-click="vm.setOrder('FirstPrice')">First Price</th>
+                            <th data-ng-click="vm.setOrder('HighPrice')">High Price</th>
+                            <th data-ng-click="vm.setOrder('LowPrice')">Low Price</th>
+                            <th data-ng-click="vm.setOrder('AccumulatedVolume')">Accumulated Volume</th>
+                            <th data-ng-click="vm.setOrder('TimeExec')">Time Exec</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-hide="vm.filteredShares || vm.filteredShares.length > 0" class="error">
+                            <td colspan="11">
+                                <div class="text-center"><strong>No shares found</strong></div>
+                            </td>
+                        </tr>
+                        <tr data-ng-repeat="share in vm.filteredShares | orderBy:vm.orderby:vm.reverse track by $index" class="repeat-animation">
+                            <td>
+                                {{ share.company.Symbol }}
+                            </td>
+                            <td>
+                                {{ share.company.Name }}
+                            </td>
+                            <td>
+                                {{ share.company.Isin }}
+                            </td>
+                            <td>
+                                {{ share.OfficialClosingPrice | currency }}
+                            </td>
+                            <td>
+                                <strong>{{ share.LastPrice | currency }}</strong>
+                            </td>
+                            <td>
+                                <img data-ng-show="share.LastPrice > share.FirstPrice" width='10' height='15' src= 'Content/images/green_arrow_up.png' />
+                                <img data-ng-show="share.LastPrice < share.FirstPrice" width='10' height='15' src= 'Content/images/down_red_arrow.png' />
+                            </td>
+                            <td>
+                                {{ share.LastTradeVolume | currency }}
+                            </td>
+                            <td>
+                                {{ share.FirstPrice | currency }}
+                            </td>
+                            <td>
+                                {{ share.HighPrice | currency }}
+                            </td>
+                            <td>
+                                {{ share.LowPrice | currency }}
+                            </td>
+                            <td>
+                                {{ share.AccumulatedVolume | currency }}
+                            </td>
+                            <td>
+                                {{ share.TimeExec | date:'hh:mm:ss' }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>        
             </div>
+            
             <div class="row show-hide-animation" data-ng-show="vm.shares.length > 0" style="margin-left:0px;">
                 <div class="col-md-12">
-                    <div data-pagination
+                    <uib-pagination 
+                        ng-change="vm.pageChanged(page)"
+                        ng-model="page"
+                        total-items="vm.totalRecords"
+                        items-per-page="vm.pageSize"
+                        max-size="maxSize"  
+                        boundary-links="true"
+                        class="pagination-sm">
+                    </uib-pagination>
+                    <!-- div data-pagination
                          data-on-select-page="vm.pageChanged(page)"
                          data-total-items="vm.totalRecords"
                          data-page="vm.currentPage"
                          data-items-per-page="vm.pageSize"
                          data-boundary-links="true"
                          class="pagination-sm">
-                    </div>
+                    </div -->
                     <h5>Showing {{ vm.filteredCount }} of {{ vm.totalRecords}} total shares</h5>
                 </div>
             </div>
-		</div>
+	</div>
     </div>
 </div>
 

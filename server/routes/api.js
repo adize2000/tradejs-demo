@@ -42,6 +42,22 @@ exports.shares = function (req, res) {
     });
 };
 
+//GET
+exports.updateShare = function (req, res) {
+    console.log('*** update share');
+    var share = req.body;
+
+    db.updateShare(share, function (err, data) {
+        if (err) {
+            console.log('*** update shares err');
+            res.json({ 'status': false });
+        } else {
+            console.log('*** update share ok');
+            res.json({ 'status': true });
+        }
+    });
+};
+
 // GET
 exports.customers = function (req, res) {
     console.log('*** customers');

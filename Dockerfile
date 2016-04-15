@@ -1,18 +1,17 @@
-FROM node:4-onbuild
-#FROM node:argon
-
+FROM node:argon
 
 # Create app directory
-# RUN mkdir -p /usr/src/trade-demo
-# WORKDIR /usr/src/trade-demo
+RUN mkdir -p /usr/src/TradeJS
+RUN mkdir -p /usr/src/TradeJS/WebContent
+WORKDIR /usr/src/TradeJS/WebContent
 
 # Install app dependencies
-# COPY package.json /usr/src/trade-demo/
-# RUN npm install
+COPY package.json /usr/src/TradeJS/WebContent/
+RUN npm install
 
 # Bundle app source
-# COPY . /usr/src/trade-demo/
+COPY . /usr/src/TradeJS/WebContent/
 
-EXPOSE 8888
+EXPOSE 8080
 
-# CMD [ "npm", "start" ]
+CMD [ "npm", "start" ]

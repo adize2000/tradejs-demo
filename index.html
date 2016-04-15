@@ -4,6 +4,9 @@
     <title>TradeJS</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap Core CSS -->
+    <!-- <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <link href="Content/animations.css" rel="stylesheet" />
     <link href="Content/styles.css" rel="stylesheet" />
@@ -33,6 +36,7 @@
                     <li><a href="#/orders">Orders</a></li -->
                     <li><a href="#/companies">Companies</a></li>
                     <li><a href="#/price">Price</a></li>
+                    <li><a href="#/feeder">Feeder</a></li>
                     <li><a href="#/about">About</a></li>
                     <li id="nav-login" data-ng-click="vm.loginOrOut()">
                         <!-- href not used but needed to compare against path in menu-highlighter -->
@@ -79,11 +83,28 @@
     </div>
 
     <!-- 3rd party libraries -->
+    <!--
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.min.js"></script>
-    <script src="Scripts/angular-ui-bootstrap.js"></script>
+    -->
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+
+    <!--<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>-->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- UI Botstrap -->
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+    <!-- <script src="Scripts/angular-ui-bootstrap.js"></script> -->
+    
     <script src="Scripts/tweenMax.min.js"></script>
+    <script src="node_modules/socket.io-client/socket.io.js"></script>
 
     <script src="app/wc.directives/directives/wcOverlay.js"></script>
     <script src="app/wc.directives/directives/menuHighlighter.js"></script>

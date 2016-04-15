@@ -2,19 +2,18 @@
 
 define(['app'], function (app) {
 
-    var injectParams = ['$filter', '$window', 'dataService', 'socket'];
+    var injectParams = ['$filter', '$window', 'dataService'];
 
-    var PriceController = function ($filter, $window, dataService, socket) {
+    var FeederController = function ($filter, $window, dataService) {
         var vm = this;
-        //var socket = io();
-        
+
         vm.shares;
         vm.filteredShares;
         vm.filteredCount;
 
         //paging
         vm.totalRecords = 0;
-        vm.pageSize = 10;
+        vm.pageSize = 20;
         vm.currentPage = 1;
 
         init();
@@ -55,29 +54,20 @@ define(['app'], function (app) {
             vm.orderby = orderby;
         }
         
-        socket.on('share update', function(shareUpdate){
-            for (var i = 0; i < vm.filteredShares.length; i++) {
-                var share = vm.filteredShares[i];
-                if (share.StreamDate === shareUpdate.StreamDate &&
-                    share.IdCode === shareUpdate.IdCode ) {
-                        share.LastPrice = shareUpdate.LastPrice;
-                        break;
-                }
-            }
-            for (var i = 0; i < vm.shares.length; i++) {
-                var share = vm.shares[i];
-                if (share.StreamDate === shareUpdate.StreamDate &&
-                    share.IdCode === shareUpdate.IdCode ) {
-                        share.LastPrice = shareUpdate.LastPrice;
-                        break;
-                }
-            }
-        });
-        
+        vm.addPrice = function (share, newValue) {
+            share.LastPrice = eval(share.LastPrice) + newValue;
+            dataService.updateShare(share)
+                .then(function (data) {
+                    //...
+                 }, function (error) {
+                    $window.alert(error.message);
+                });
+        }
+
     };
 
-    PriceController.$inject = injectParams;
+    FeederController.$inject = injectParams;
 
-    app.register.controller('PriceController', PriceController);
+    app.register.controller('FeederController', FeederController);
 
 });

@@ -47,6 +47,7 @@ var baseUrl = '/api/dataservice/';
 
 app.get(baseUrl + 'Companies', api.companies);
 app.get(baseUrl + 'Shares', api.shares);
+//app.post(baseUrl + 'postShare', api.updateShare);
 
 app.get(baseUrl + 'Customers', api.customers);
 app.get(baseUrl + 'Customer/:id', api.customer);
@@ -69,7 +70,20 @@ app.post(baseUrl + 'Logout', api.logout);
 app.get('*', routes.index);
 
 // Start server
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
-app.listen(3000, function () {
-    console.log("TradeJS Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+io.on('connection', function(socket){
+    socket.on('news', function(news){
+        io.emit('news', news);
+    });
+});
+
+app.post(baseUrl + 'postShare', function (req, res) {
+    io.emit('share update', req.body);
+    return api.updateShare(req, res);
+});
+
+http.listen(3000, function(){
+	  console.log("TradeJS Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });

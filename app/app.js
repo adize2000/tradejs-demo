@@ -39,6 +39,7 @@ define(['customersApp/services/routeResolver'], function () {
                 .when('/orders', route.resolve('Orders', 'orders/', 'vm'))
                 .when('/companies', route.resolve('Companies', 'companies/', 'vm'))
                 .when('/price', route.resolve('Price', 'companies/', 'vm', true))
+                .when('/feeder', route.resolve('Feeder', 'companies/', 'vm', true))
                 .when('/about', route.resolve('About', '', 'vm'))
                 .when('/login/:redirect*?', route.resolve('Login', '', 'vm'))
                 .otherwise({ redirectTo: '/companies' });
