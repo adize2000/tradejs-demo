@@ -17,6 +17,17 @@
             </form>
         </div>
         <div class="container">
+            <div class="pull-left row col-xs-4">
+                <ul class="ticker">
+                    <li ng-repeat="item in vm.shareNews" class="fadex">
+                        <h6>
+                            <span class="label label-info">{{item.time | date:'hh:mm:ss'}}</span> {{item.company}} - {{item.price | currency }} 
+                        <img data-ng-show="item.gt" width='10' height='15' src= 'Content/images/green_arrow_up.png' />
+                        <img data-ng-show="item.lt" width='10' height='15' src= 'Content/images/down_red_arrow.png' />
+                        </h6>
+                    </li>
+                </ul>
+            </div>
             <div class="row">
                 <table class="table table-hover table-striped table-condensed table-bordered ordersTable">
                     <thead>
@@ -37,53 +48,52 @@
                     </thead>
                     <tbody>
                         <tr data-ng-hide="vm.filteredShares || vm.filteredShares.length > 0" class="error">
-                            <td colspan="11">
+                            <td colspan="12">
                                 <div class="text-center"><strong>No shares found</strong></div>
                             </td>
                         </tr>
                         <tr data-ng-repeat="share in vm.filteredShares | orderBy:vm.orderby:vm.reverse track by $index" class="repeat-animation">
-                            <td>
+                            <td animate-on-change="share.LastPrice">
                                 {{ share.company.Symbol }}
                             </td>
-                            <td>
+                            <td animate-on-change="share.LastPrice">
                                 {{ share.company.Name }}
                             </td>
-                            <td>
+                            <td animate-on-change="share.LastPrice">
                                 {{ share.company.Isin }}
                             </td>
-                            <td>
+                            <td animate-on-change="share.LastPrice">
                                 {{ share.OfficialClosingPrice | currency }}
                             </td>
-                            <td>
-                                <strong>{{ share.LastPrice | currency }}</strong>
+                            <td animate-on-change="share.LastPrice">
+                                <span> {{ share.LastPrice | currency }}</span>
                             </td>
-                            <td>
+                            <td animate-on-change="share.LastPrice">
                                 <img data-ng-show="share.LastPrice > share.FirstPrice" width='10' height='15' src= 'Content/images/green_arrow_up.png' />
                                 <img data-ng-show="share.LastPrice < share.FirstPrice" width='10' height='15' src= 'Content/images/down_red_arrow.png' />
                             </td>
-                            <td>
+                            <td animate-on-change="share.LastPrice">
                                 {{ share.LastTradeVolume | currency }}
                             </td>
-                            <td>
+                            <td animate-on-change="share.LastPrice">
                                 {{ share.FirstPrice | currency }}
                             </td>
-                            <td>
+                            <td animate-on-change="share.LastPrice">
                                 {{ share.HighPrice | currency }}
                             </td>
-                            <td>
+                            <td animate-on-change="share.LastPrice">
                                 {{ share.LowPrice | currency }}
                             </td>
-                            <td>
+                            <td animate-on-change="share.LastPrice">
                                 {{ share.AccumulatedVolume | currency }}
                             </td>
-                            <td>
+                            <td animate-on-change="share.LastPrice">
                                 {{ share.TimeExec | date:'hh:mm:ss' }}
                             </td>
                         </tr>
                     </tbody>
                 </table>        
             </div>
-            
             <div class="row show-hide-animation" data-ng-show="vm.shares.length > 0" style="margin-left:0px;">
                 <div class="col-md-12">
                     <uib-pagination 
@@ -95,14 +105,6 @@
                         boundary-links="true"
                         class="pagination-sm">
                     </uib-pagination>
-                    <!-- div data-pagination
-                         data-on-select-page="vm.pageChanged(page)"
-                         data-total-items="vm.totalRecords"
-                         data-page="vm.currentPage"
-                         data-items-per-page="vm.pageSize"
-                         data-boundary-links="true"
-                         class="pagination-sm">
-                    </div -->
                     <h5>Showing {{ vm.filteredCount }} of {{ vm.totalRecords}} total shares</h5>
                 </div>
             </div>

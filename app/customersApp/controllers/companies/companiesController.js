@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 
 define(['app'], function (app) {
 
@@ -13,7 +13,7 @@ define(['app'], function (app) {
 
         //paging
         vm.totalRecords = 0;
-        vm.pageSize = 20;
+        vm.pageSize = 10;
         vm.currentPage = 1;
 
         init();

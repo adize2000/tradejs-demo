@@ -18,60 +18,61 @@
         </div>
         <div class="container">
             <div class="row">
-				<table class="table table-hover table-striped table-condensed table-bordered ordersTable">
-				    <thead>
-				        <tr>
-				            <th data-ng-click="vm.setOrder('Symbol')">Id</th>
-				            <th data-ng-click="vm.setOrder('Name')">Company</th>
-				            <th data-ng-click="vm.setOrder('SharesListed')">Shares Listed</th>
-				            <th data-ng-click="vm.setOrder('TotalIssue')">Total Issue</th>
-				            <th data-ng-click="vm.setOrder('ShareCapital')">Share Capital</th>
-				            <th data-ng-click="vm.setOrder('UpdateTmst')">Last Updated</th>
-				        </tr>
-				    </thead>
-				    <tbody>
-				        <tr data-ng-hide="vm.filteredCompanies || vm.filteredCompanies.length > 0" class="error">
-				            <td colspan="6">
-				                <div class="text-center"><strong>No companies found</strong></div>
-				            </td>
-				        </tr>
-				        <tr data-ng-repeat="company in vm.filteredCompanies | orderBy:vm.orderby:vm.reverse" class="repeat-animation">
-				            <td>
-				                {{ company.Symbol }}
-				            </td>
-				            <td>
-				                {{ company.Name }}
-				            </td>
-				            <td>
-				                {{ company.SharesListed }}
-				            </td>
-				            <td>
-				                {{ company.TotalIssue | currency }}
-				            </td>
-				            <td>
-				                {{ company.ShareCapital | currency }}
-				            </td>
-				            <td>
-				                {{ company.UpdateTmst | date:'MM/dd/yyyy hh:mm:ss' }}
-				            </td>
-				        </tr>
-				    </tbody>
-				</table>        
+                <table class="table table-hover table-striped table-condensed table-bordered ordersTable">
+                    <thead>
+                        <tr>
+                            <th data-ng-click="vm.setOrder('Symbol')">Id</th>
+                            <th data-ng-click="vm.setOrder('Name')">Company</th>
+                            <th data-ng-click="vm.setOrder('SharesListed')">Shares Listed</th>
+                            <th data-ng-click="vm.setOrder('TotalIssue')">Total Issue</th>
+                            <th data-ng-click="vm.setOrder('ShareCapital')">Share Capital</th>
+                            <th data-ng-click="vm.setOrder('UpdateTmst')">Last Updated</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-hide="vm.filteredCompanies || vm.filteredCompanies.length > 0" class="error">
+                            <td colspan="6">
+                                <div class="text-center"><strong>No companies found</strong></div>
+                            </td>
+                        </tr>
+                        <tr data-ng-repeat="company in vm.filteredCompanies | orderBy:vm.orderby:vm.reverse" class="repeat-animation">
+                            <td>
+                                {{ company.Symbol }}
+                            </td>
+                            <td>
+                                {{ company.Name }}
+                            </td>
+                            <td>
+                                {{ company.SharesListed }}
+                            </td>
+                            <td>
+                                {{ company.TotalIssue | currency }}
+                            </td>
+                            <td>
+                                {{ company.ShareCapital | currency }}
+                            </td>
+                            <td>
+                                {{ company.UpdateTmst | date:'MM/dd/yyyy hh:mm:ss' }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>        
             </div>
             <div class="row show-hide-animation" data-ng-show="vm.companies.length > 0" style="margin-left:0px;">
                 <div class="col-md-12">
-                    <div data-pagination
-                         data-on-select-page="vm.pageChanged(page)"
-                         data-total-items="vm.totalRecords"
-                         data-page="vm.currentPage"
-                         data-items-per-page="vm.pageSize"
-                         data-boundary-links="true"
-                         class="pagination-sm">
-                    </div>
+                    <uib-pagination 
+                        ng-change="vm.pageChanged(page)"
+                        ng-model="page"
+                        total-items="vm.totalRecords"
+                        items-per-page="vm.pageSize"
+                        max-size="maxSize"  
+                        boundary-links="true"
+                        class="pagination-sm">
+                    </uib-pagination>
                     <h5>Showing {{ vm.filteredCount }} of {{ vm.totalRecords}} total customers</h5>
                 </div>
             </div>
-		</div>
+	</div>
     </div>
 </div>
 

@@ -2,20 +2,22 @@
 
 define(['app'], function (app) {
 
-    var injectParams = ['$filter', '$window', 'dataService', 'socket'];
+    var injectParams = ['$filter', '$window', '$scope', '$timeout', 'dataService', 'socket'];
 
-    var PriceController = function ($filter, $window, dataService, socket) {
+    var PriceController = function ($filter, $window, $scope, $timeout, dataService, socket) {
         var vm = this;
-        //var socket = io();
         
         vm.shares;
         vm.filteredShares;
         vm.filteredCount;
-
+        vm.shareNews = [];
+        
         //paging
         vm.totalRecords = 0;
         vm.pageSize = 10;
         vm.currentPage = 1;
+
+        vm.news = "...";
 
         init();
 
@@ -25,19 +27,21 @@ define(['app'], function (app) {
         };
 
         vm.searchTextChanged = function () {
-        	filterShares(vm.searchText);
+            filterShares(vm.searchText);
         };
 
         function init() {
             getShares();
-        }
+        };
 
         function filterShares(filterText) {
+            $scope.animate = false;
             vm.filteredShares = $filter("nameCompanyFilter")(vm.shares, filterText);
             vm.filteredCount = vm.filteredShares.length;
-        }
+        };
 
         function getShares() {
+            $scope.animate = false;
             dataService.getShares(vm.currentPage - 1, vm.pageSize)
                 .then(function (data) {
                     vm.totalRecords = data.totalRecords;
@@ -46,16 +50,32 @@ define(['app'], function (app) {
                 }, function (error) {
                     $window.alert(error.message);
                 });
-        }
+        };
         
         vm.setOrder = function (orderby) {
+            $scope.animate = false;
             if (orderby === vm.orderby) {
                 vm.reverse = !vm.reverse;
             }
             vm.orderby = orderby;
-        }
+        };
         
         socket.on('share update', function(shareUpdate){
+            $scope.animate = true;
+            
+            if(vm.shareNews.length > 0)
+                vm.shareNews.splice(0,1);
+            
+            $timeout(function () {
+                var shareNews = {};
+                shareNews.company = shareUpdate.company.Name;
+                shareNews.price = shareUpdate.LastPrice;
+                shareNews.gt = shareUpdate.LastPrice > shareUpdate.FirstPrice;
+                shareNews.lt = shareUpdate.LastPrice < shareUpdate.FirstPrice;
+                shareNews.time = new Date();
+                vm.shareNews.push(shareNews);
+            }, 1000);
+            
             for (var i = 0; i < vm.filteredShares.length; i++) {
                 var share = vm.filteredShares[i];
                 if (share.StreamDate === shareUpdate.StreamDate &&

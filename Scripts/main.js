@@ -8,6 +8,7 @@ require(
         'customersApp/animations/listAnimations',
         'app',
         'customersApp/directives/wcUnique',
+        'customersApp/directives/animateOnChange',
         'customersApp/services/routeResolver',
         'customersApp/services/config',
         'customersApp/services/customersBreezeService',

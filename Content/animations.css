@@ -101,3 +101,71 @@ body.skip-animations * {
 .repeat-animation.ng-move.ng-move-active {
   opacity:1;
 }
+
+.change {
+    background-color: #FFD7C9!important;
+}
+.change-add,.change-remove {
+  background-color: white!important;
+  transition: all 1s;
+  -webkit-transition: all 1s ease-in-out;
+}
+.change-add-active {
+  background-color: #FFD7C9!important;
+}
+.change-remove {
+    background-color: #FFD7C9!important;
+
+}
+.change-remove-active {
+  background-color: white!important;
+}
+
+.change-up {
+    background-color: #c1e2b3!important;
+}
+.change-up-add,.change-up-remove {
+  background-color: white!important;
+  transition: all 1s;
+  -webkit-transition: all 1s ease-in-out;
+}
+.change-up-add-active {
+  background-color: #c1e2b3!important;
+}
+.change-up-remove {
+    background-color: #c1e2b3!important;
+
+}
+.change-up-remove-active {
+  background-color: white!important;
+}
+
+.fadex {
+  transition: 1s linear all;
+  -webkit-transition: 1s linear all;
+}
+
+.fadex.ng-enter {
+  opacity: 0;
+}
+
+.fadex.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
+
+.fadex.ng-leave {
+  opacity: 1;
+}
+
+.fadex.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+
+.ticker {
+    list-style-type: none;
+}
+
+.col-xs-4 {
+    height: 30px;
+}
