@@ -1,0 +1,32 @@
+#see current running services
+docker ps
+
+#see installed images
+docker images
+
+#build docker from current application dir
+docker build -t adize2000/tradejs .
+
+#run docker linked to mongo docker
+docker run -d -P --name web --link db:db adize2000/tradejs
+
+#login to doker
+docker login
+
+#push application image to docker git
+docker push adize2000/tradejs
+
+#run mongo docker
+docker run -d -p 27017:27017 --name db mongo
+
+#get application from git
+git pull https://github.com/adize2000/tradejs-demo.git
+
+#edit project
+sublime -d Dockerfile
+
+#connect to docker
+docker run -i -t adize2000/tradejs /bin/bash
+
+#add execute to script file
+chmod +x initMongoDB.sh
