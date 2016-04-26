@@ -16,6 +16,12 @@
     "express-session": "^1.8.2",
     "jade": ">=1.7.0",
     "mongoose": ">=3.8.17",
-    "socket.io": "^1.4.5"
+    "socket.io": "^1.4.5",
+    "engine.io": "1.6.8",
+    "socket.io-parser": "2.2.6",
+    "socket.io-client": "1.4.5",
+    "socket.io-adapter": "0.4.0",
+    "has-binary": "0.1.7",
+    "debug": "2.2.0"
   }
 }
